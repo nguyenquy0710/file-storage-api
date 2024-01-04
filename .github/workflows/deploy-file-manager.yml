@@ -57,8 +57,8 @@ jobs:
         run: sh scripts/migrate.sh
       - name: Run Python script
         # run: python your_script.py # Đặt tên của tệp Python bạn muốn chạy ở đây
-        run: sh scripts/run-local.sh
-        # run: python3 manage.py runserver 1276
+        # run: sh scripts/run-local.sh
+        run: python3 manage.py runserver 1276
         env:
           PORT: 1276 # Set an environment variable with the port number
       # - name: Deploy to GitHub Pages
