@@ -1,0 +1,58 @@
+# Simple workflow for deploying static content to GitHub Pages
+# https://raw.githubusercontent.com/nguyenquy0710/repo-database/main/.github/workflows/deploy-file-manager.yml
+name: Deploy Python to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["master"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    # environment:
+    #   #name: github-pages
+    #   url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install python:3.10.7-alpine
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.x
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        # with:
+        #   # Upload entire repository
+        #   path: "pypackages"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Nếu bạn có một tệp requirements.txt
+      - name: Run Python script migrate
+        run: sh scripts/migrate.sh
+      - name: Run Python script
+        # run: python your_script.py # Đặt tên của tệp Python bạn muốn chạy ở đây
+        run: sh scripts/run-local.sh
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v2
+      # - name: Deploy to GitHub Pages
+      #   run: gh pages upload --dir public
