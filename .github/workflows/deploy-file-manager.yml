@@ -62,9 +62,9 @@ jobs:
       #   env:
       #     PORT: 1276 # Set an environment variable with the port number
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # publish_dir: ./output # Thư mục chứa trang web tĩnh
-          publish_dir: ./ # Thư mục chứa trang web tĩnh
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     # publish_dir: ./output # Thư mục chứa trang web tĩnh
+      #     publish_dir: ./ # Thư mục chứa trang web tĩnh
