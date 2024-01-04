@@ -28,6 +28,13 @@ jobs:
     #   #name: github-pages
     #   url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
+    # services:
+    #   my-custom-service:
+    #     image: your-docker-image:latest
+    #     ports:
+    #       - 5000:5000  # Map port 5000 in the service to port 5000 on the host
+
     steps:
       - name: Install python:3.10.7-alpine
         uses: actions/setup-python@v3
@@ -46,11 +53,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Nếu bạn có một tệp requirements.txt
-      # - name: Run Python script migrate
-      #   run: sh scripts/migrate.sh
+      - name: Run Python script migrate
+        run: sh scripts/migrate.sh
       - name: Run Python script
         # run: python your_script.py # Đặt tên của tệp Python bạn muốn chạy ở đây
         run: sh scripts/run-local.sh
+        # run: python3 manage.py runserver 1276
+        env:
+          PORT: 1276 # Set an environment variable with the port number
       # - name: Deploy to GitHub Pages
       #   id: deployment
       #   uses: actions/deploy-pages@v2
